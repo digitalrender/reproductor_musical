@@ -1,0 +1,5 @@
+{
+  "name": "Neon80s VU Meter",
+  "description": "A retro-themed 80s VU meter visualizer with neon violet and red aesthetics, allowing users to upload and visualize their favorite music.",
+  "requestFramePermissions": []
+}

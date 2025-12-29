@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CharlieBravo Music Cassette Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&family=Michroma&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #050508;
+      color: #e0e0e0;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Fondo Synthwave */
+    .synth-world {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: linear-gradient(to bottom, #050508 0%, #1a0b2e 50%, #0a2e1f 100%);
+      overflow: hidden;
+    }
+
+    /* Sol Retro */
+    .synth-sun {
+      position: absolute;
+      left: 50%;
+      top: 45%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(to bottom, #ff00ff 0%, #7000ff 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 80px rgba(176, 38, 255, 0.6);
+      mask-image: linear-gradient(to bottom, 
+        black 0%, black 50%, 
+        transparent 52%, black 54%, 
+        transparent 58%, black 60%, 
+        transparent 66%, black 68%, 
+        transparent 76%, black 78%, 
+        transparent 88%, black 90%, 
+        transparent 98%
+      );
+    }
+
+    /* Montañas Poligonales */
+    .synth-mountains {
+      position: absolute;
+      bottom: 25%;
+      width: 100%;
+      height: 250px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      filter: drop-shadow(0 0 10px #00ff9f);
+    }
+
+    .mountain {
+      width: 0;
+      height: 0;
+      border-left: 200px solid transparent;
+      border-right: 200px solid transparent;
+      border-bottom: 150px solid rgba(10, 46, 31, 0.8);
+      position: relative;
+      margin-left: -100px;
+      animation: float-mountain 10s ease-in-out infinite;
+    }
+    .mountain::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -200px; width: 400px; height: 150px;
+      border-left: 2px solid #00ff9f;
+      border-right: 2px solid #00ff9f;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    .mountain:nth-child(2) { border-bottom-color: rgba(176, 38, 255, 0.3); animation-delay: -3s; }
+    .mountain:nth-child(2)::after { border-color: #b026ff; }
+    
+    @keyframes float-mountain {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
+    }
+
+    /* Rejilla 80s */
+    .retro-grid {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 40%;
+      left: -50%;
+      background-image: 
+        linear-gradient(rgba(176, 38, 255, 0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 159, 0.3) 1px, transparent 1px);
+      background-size: 50px 50px;
+      transform: perspective(300px) rotateX(60deg);
+      animation: grid-move 5s linear infinite;
+    }
+
+    @keyframes grid-move {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 50px; }
+    }
+
+    .horizon-glow {
+      position: absolute;
+      bottom: 35%;
+      width: 100%;
+      height: 10px;
+      background: #00ff9f;
+      box-shadow: 0 0 30px #00ff9f, 0 0 60px #b026ff;
+      filter: blur(2px);
+    }
+
+    /* Texturas de Hardware Retro */
+    .brushed-metal {
+      background: linear-gradient(135deg, #2a2a2e 0%, #1a1a1c 50%, #2a2a2e 100%);
+      background-size: 4px 4px;
+      position: relative;
+    }
+    .brushed-metal::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 10%, rgba(255,255,255,0.03) 20%);
+      pointer-events: none;
+    }
+
+    .glass-panel {
+      background: rgba(0, 0, 0, 0.85);
+      border: 3px solid #111;
+      box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 1px 1px rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Botones Estilo Piano-Key */
+    .piano-button {
+      background: linear-gradient(to bottom, #333 0%, #111 100%);
+      border-left: 1px solid #444;
+      border-right: 1px solid #000;
+      border-bottom: 4px solid #000;
+      box-shadow: 0 4px 0 #000, 0 8px 15px rgba(0,0,0,0.5);
+      transition: all 0.1s;
+      text-transform: uppercase;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: #888;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .piano-button:active, .piano-button.active {
+      transform: translateY(3px);
+      border-bottom-width: 1px;
+      box-shadow: 0 1px 0 #000, inset 0 2px 5px rgba(0,0,0,0.8);
+      color: #fff;
+    }
+    .piano-button.play-btn.active { color: #00ff9f; text-shadow: 0 0 5px #00ff9f; }
+    .piano-button.stop-btn:active { color: #ff003c; text-shadow: 0 0 5px #ff003c; }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .tape-reel { animation: spin 3s linear infinite; }
+    .tape-reel.paused { animation-play-state: paused; }
+
+    /* Indicadores LED */
+    .led {
+      width: 6px; height: 6px; border-radius: 50%; background: #222;
+      box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+    }
+    .led.active-green { background: #00ff9f; box-shadow: 0 0 8px #00ff9f; }
+    .led.active-red { background: #ff003c; box-shadow: 0 0 8px #ff003c; }
+
+    /* Cassette Tape Visuals */
+    .cassette-shell {
+      background: linear-gradient(135deg, #1e1e1e, #111111);
+      border: 1px solid #333;
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    .cassette-label {
+      background: #fdfdfd;
+      border-radius: 4px;
+      position: relative;
+      border-bottom: 4px solid #ccc;
+    }
+    .cassette-window {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #222;
+      border-radius: 4px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,1);
+    }
+    .cassette-reel-core {
+      background: #eee;
+      border: 2px solid #333;
+      box-shadow: 0 0 2px rgba(0,0,0,0.5);
+    }
+    .cassette-screw {
+      width: 6px; height: 6px; background: #333; border-radius: 50%;
+      position: absolute; box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
